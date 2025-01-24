@@ -7,8 +7,15 @@
       "type": "board-pi-pico-w",
       "id": "pico",
       "top": -3.25,
-      "left": 32.35,
+      "left": 80.35,
       "attrs": { "builder": "pico-sdk" }
+    },
+    {
+      "type": "wokwi-membrane-keypad",
+      "id": "keypad1",
+      "top": -357.2,
+      "left": 178.4,
+      "attrs": {}
     },
     { "type": "wokwi-neopixel", "id": "rgb1", "top": 92.5, "left": -97, "attrs": {} },
     { "type": "wokwi-neopixel", "id": "rgb2", "top": 92.5, "left": -154.6, "attrs": {} },
@@ -46,17 +53,16 @@
     { "type": "wokwi-vcc", "id": "vcc5", "top": -364.04, "left": -48, "attrs": {} },
     { "type": "wokwi-gnd", "id": "gnd5", "top": -268.8, "left": -48.6, "attrs": {} },
     {
-      "type": "wokwi-pushbutton",
-      "id": "btn1",
-      "top": 15.8,
-      "left": 201.6,
-      "attrs": { "color": "green" }
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 79.2,
+      "left": 366.6,
+      "attrs": { "volume": "0.1" }
     }
   ],
   "connections": [
     [ "pico:GP0", "$serialMonitor:RX", "", [] ],
     [ "pico:GP1", "$serialMonitor:TX", "", [] ],
-    [ "pico:GP7", "rgb1:DIN", "green", [ "h-54.05", "v-3.25" ] ],
     [ "gnd1:GND", "rgb1:VSS", "black", [ "v0" ] ],
     [ "rgb1:DOUT", "rgb2:DIN", "green", [ "h-19.2", "v-10.5" ] ],
     [ "rgb2:DOUT", "rgb3:DIN", "green", [ "h-19.2", "v-10.5" ] ],
@@ -141,8 +147,17 @@
     [ "rgb23:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb24:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb25:VSS", "gnd5:GND", "green", [ "v0" ] ],
-    [ "pico:GP6", "btn1:1.l", "green", [ "h-28.8", "v-124.8", "h172.8", "v67.2" ] ],
-    [ "btn1:2.l", "pico:GND.6", "green", [ "h-19.2", "v67.4" ] ]
+    [ "rgb1:DIN", "pico:GP7", "green", [ "h0" ] ],
+    [ "pico:GP27", "keypad1:R1", "green", [ "h0" ] ],
+    [ "pico:GP26", "keypad1:R2", "green", [ "h134.71", "v-9.6" ] ],
+    [ "pico:RUN", "keypad1:R3", "green", [ "h144.31" ] ],
+    [ "pico:GP22", "keypad1:R4", "green", [ "h0" ] ],
+    [ "pico:GP21", "keypad1:C1", "green", [ "h0" ] ],
+    [ "pico:GP20", "keypad1:C2", "green", [ "h0" ] ],
+    [ "pico:GP19", "keypad1:C3", "green", [ "h0" ] ],
+    [ "pico:GP18", "keypad1:C4", "green", [ "h192.31", "v-172.76" ] ],
+    [ "pico:GND.5", "bz1:1", "black", [ "h0" ] ],
+    [ "pico:GP17", "bz1:2", "red", [ "h0" ] ]
   ],
   "dependencies": {}
 }
