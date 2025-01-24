@@ -24,16 +24,6 @@
 const uint button_0 = 5;
 const uint button_1 = 6;
 
-// Declaração das matrizes de colunas
-const uint colunas[cols] = {4, 3, 2, 1};
-const uint linhas[rows] = {8, 7, 6, 5};
-
-const char teclas[rows][cols] = {
-    {'1', '2', '3', 'A'},
-    {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
-    {'*', '0', '#', 'D'}};
-
 // vetor para criar imagem na matriz de led - 1
 double desenho_teste[NUM_FRAMES][NUM_PIXELS] = {
     {1.0, 1.0, 1.0, 1.0, 1.0,
