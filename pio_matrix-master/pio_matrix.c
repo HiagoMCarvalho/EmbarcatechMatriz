@@ -12,7 +12,7 @@
 
 //número de LEDs
 #define NUM_PIXELS 25
-#define NUM_FRAMES 2
+#define NUM_FRAMES 5
 
 //pino de saída
 #define OUT_PIN 7
@@ -23,19 +23,19 @@ const uint button_1 = 6;
 
 //vetor para criar imagem na matriz de led - 1
 double desenho_teste[NUM_FRAMES][NUM_PIXELS] ={ 
-                        {0.0, 0.3, 0.3, 0.3, 0.0,
-                        0.0, 0.3, 0.0, 0.3, 0.0, 
-                        0.0, 0.3, 0.3, 0.3, 0.0,
-                        0.0, 0.3, 0.0, 0.3, 0.0,
-                        0.0, 0.3, 0.3, 0.3, 0.0},
-                        
-                        {1.0, 0.0, 0.0, 0.0, 1.0,
-                        0.0, 1.0, 0.0, 1.0, 0.0, 
+                        {1.0, 1.0, 1.0, 1.0, 1.0, 
+                        0.0, 0.0, 0.0, 0.0, 0.0, 
+                        0.0, 0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 1.0, 0.0, 0.0,
-                        0.0, 1.0, 0.0, 1.0, 0.0,
-                        1.0, 0.0, 0.0, 0.0, 1.0}
+                        0.0, 1.0, 1.0, 1.0, 0.0},
+                        
+                        {1.0, 1.0, 1.0, 1.0, 1.0, 
+                        0.0, 1.0, 0.0, 1.0, 1.0, 
+                        0.0, 0.0, 0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0, 1.0, 0.0,
+                        0.0, 0.0, 1.0, 1.0, 1.0},
+                        
                     };
-
 
 //imprimir valor binário
 void imprimir_binario(int num) {
@@ -66,15 +66,15 @@ uint32_t matrix_rgb(double b, double r, double g)
 void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b){
 
     for (int16_t i = 0; i < NUM_PIXELS; i++) {
-        if (i%2==0)
-        {
+        /*if (i%2==0)
+        {*/
             valor_led = matrix_rgb(desenho[24-i], r=0.0, g=0.0);
             pio_sm_put_blocking(pio, sm, valor_led);
 
-        }else{
+        /*}else{
             valor_led = matrix_rgb(b=0.0, desenho[24-i], g=0.0);
             pio_sm_put_blocking(pio, sm, valor_led);
-        }
+        }*/
     }
     imprimir_binario(valor_led);
 }
@@ -82,11 +82,11 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
 //função principal
 int main()
 {
-    PIO pio = pio0; 
+    PIO pio = pio0;
     bool ok;
     uint16_t i;
     uint32_t valor_led;
-    double r = 0.0, b = 0.0 , g = 0.0;
+    double r = 1, b = 0.0 , g = 0.0;
 
     //coloca a frequência de clock para 128 MHz, facilitando a divisão pelo clock
     ok = set_sys_clock_khz(128000, false);
@@ -117,10 +117,10 @@ int main()
 
     while (true) {
 
-        for (int i = 0; i < NUM_FRAMES; i++) 
+        for (int i = 0; i < NUM_FRAMES; i++)
         {
             desenho_pio(desenho_teste[i], valor_led, pio, sm, r, g, b); // Atualiza a matriz com o quadro atual
-            sleep_ms(500); // Controla o FPS
+            sleep_ms(1000); // Controla o FPS
         }
 
     }
