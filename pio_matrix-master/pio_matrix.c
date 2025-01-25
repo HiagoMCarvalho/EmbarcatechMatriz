@@ -152,12 +152,13 @@ void imprimir_binario(int num)
 // rotina da interrupção
 static void gpio_irq_handler(uint gpio, uint32_t events)
 {
+
     printf("Interrupção ocorreu no pino %d, no evento %d\n", gpio, events);
     printf("HABILITANDO O MODO GRAVAÇÃO");
     reset_usb_boot(0, 0); // habilita o modo de gravação do microcontrolador
 }
 
-// rotina para definição da intensidade de cores do led
+
 uint32_t matrix_rgb(double b, double r, double g)
 {
     unsigned char R, G, B;
@@ -166,6 +167,7 @@ uint32_t matrix_rgb(double b, double r, double g)
     B = b * 255;
     return (G << 24) | (R << 16) | (B << 8);
 }
+
 
 // rotina para acionar a matrix de leds - ws2812b
 void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b)
@@ -180,7 +182,9 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
     imprimir_binario(valor_led);
 }
 
+
 // função principal
+
 int main()
 {
     PIO pio = pio0;
@@ -188,14 +192,11 @@ int main()
     uint16_t i;
     uint32_t valor_led;
     double r = 1, b = 0.0, g = 0.0;
-
-    // coloca a frequência de clock para 128 MHz, facilitando a divisão pelo clock
     ok = set_sys_clock_khz(128000, false);
-
     // Inicializa todos os códigos stdio padrão que estão ligados ao binário.
     stdio_init_all();
-
     printf("iniciando a transmissão PIO");
+
     if (ok)
         printf("clock set to %ld\n", clock_get_hz(clk_sys));
 
@@ -224,6 +225,7 @@ int main()
     while (true)
     {
         for (int i = 0; i < NUM_FRAMES; i++)
+
         {
             desenho_pio(desenho_teste[i], valor_led, pio, sm, r, g, b); // Atualiza a matriz com o quadro atual
             sleep_ms(1000);                                             // Controla o FPS

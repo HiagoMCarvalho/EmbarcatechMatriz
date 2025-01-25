@@ -148,16 +148,16 @@
     [ "rgb24:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb25:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb1:DIN", "pico:GP7", "green", [ "h0" ] ],
-    [ "pico:GP27", "keypad1:R1", "green", [ "h0" ] ],
-    [ "pico:GP26", "keypad1:R2", "green", [ "h134.71", "v-9.6" ] ],
-    [ "pico:RUN", "keypad1:R3", "green", [ "h144.31" ] ],
-    [ "pico:GP22", "keypad1:R4", "green", [ "h0" ] ],
-    [ "pico:GP21", "keypad1:C1", "green", [ "h0" ] ],
-    [ "pico:GP20", "keypad1:C2", "green", [ "h0" ] ],
-    [ "pico:GP19", "keypad1:C3", "green", [ "h0" ] ],
-    [ "pico:GP18", "keypad1:C4", "green", [ "h192.31", "v-172.76" ] ],
     [ "pico:GND.5", "bz1:1", "black", [ "h0" ] ],
-    [ "pico:GP17", "bz1:2", "red", [ "h0" ] ]
+    [ "pico:GP17", "bz1:2", "red", [ "h0" ] ],
+    [ "pico:GP28", "keypad1:R1", "green", [ "h0" ] ],
+    [ "keypad1:R2", "pico:GP27", "green", [ "v0" ] ],
+    [ "keypad1:R3", "pico:GP26", "green", [ "v0" ] ],
+    [ "keypad1:R4", "pico:GP22", "green", [ "v0" ] ],
+    [ "keypad1:C1", "pico:GP21", "green", [ "v153.6", "h-163.3" ] ],
+    [ "keypad1:C2", "pico:GP20", "green", [ "v0" ] ],
+    [ "keypad1:C3", "pico:GP19", "green", [ "v0" ] ],
+    [ "keypad1:C4", "pico:GP18", "green", [ "v0" ] ]
   ],
   "dependencies": {}
 }
