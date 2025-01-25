@@ -13,9 +13,108 @@
 // número de LEDs
 #define NUM_PIXELS 25
 #define NUM_FRAMES 5
+// Buzzer
+#define buzzer 17
 
+// Linhas e colunas do teclado matricial
 #define rows 4
 #define cols 4
+
+// Declaração das matrizes do teclado matricial
+const uint colunas[cols] = {4, 3, 2, 1};
+const uint linhas[rows] = {8, 7, 6, 5};
+
+const char teclas[rows][cols] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}};
+
+void init_pinos()
+{
+    // Inicializar as teclas como saída
+    for (int l = 0; l < rows; l++)
+    {
+        gpio_init(linhas[l]);
+        gpio_set_dir(linhas[l], GPIO_OUT);
+        gpio_put(linhas[l], true);
+    }
+
+    // Inicializar as teclas como entrada
+    for (int c = 0; c < cols; c++)
+    {
+        gpio_init(colunas[c]);
+        gpio_set_dir(colunas[c], GPIO_IN);
+        gpio_pull_up(colunas[c]);
+    }
+}
+
+char escanear_teclado()
+{
+    for (int row = 0; row < rows; row++)
+    {
+        gpio_put(linhas[row], false);
+
+        for (int col = 0; col < cols; col++)
+        {
+            if (!gpio_get(colunas[col]))
+            {
+                sleep_ms(20); // Debouncing
+                if (!gpio_get(colunas[col]))
+                {
+                    gpio_put(linhas[row], true);
+                    return teclas[row][col];
+                }
+            }
+        }
+        gpio_put(linhas[row], true); // Desativar linha atual
+    }
+    return 0; // Nenhuma tecla pressionada
+}
+
+void executar_tecla(char tecla)
+{
+    switch (tecla)
+    {
+    case '1':
+
+        break;
+
+    case '2':
+
+        break;
+
+    case '3':
+
+        break;
+
+    case '4':
+
+        break;
+
+    case '5':
+
+        break;
+
+    default:
+
+        break;
+    }
+}
+
+void tocar_buzzer(int duracao)
+{
+    int tempo = duracao;
+    while (tempo > 0)
+    {
+        gpio_put(buzzer, true); // Liga o buzzer
+        sleep_ms(0.5);          // Mantém ligado por 0.5ms
+        tempo--;
+        gpio_put(buzzer, false); // Desliga o buzzer
+        sleep_ms(2);             // Aguarda 2ms antes de repetir
+        tempo -= 3;
+    }
+}
 
 // pino de saída
 #define OUT_PIN 7
@@ -74,7 +173,6 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
 
     for (int16_t i = 0; i < NUM_PIXELS; i++)
     {
-
         valor_led = matrix_rgb(desenho[24 - i], r = 0.0, g = 0.0); // Definine todos os leds para a cor azul
         pio_sm_put_blocking(pio, sm, valor_led);
     }
@@ -106,6 +204,10 @@ int main()
     uint sm = pio_claim_unused_sm(pio, true);
     pio_matrix_program_init(pio, sm, offset, OUT_PIN);
 
+    // Inicializar os botões do teclado
+    init_pinos();
+    escanear_teclado();
+
     // inicializar o botão de interrupção - GPIO5
     gpio_init(button_0);
     gpio_set_dir(button_0, GPIO_IN);
@@ -121,7 +223,6 @@ int main()
 
     while (true)
     {
-
         for (int i = 0; i < NUM_FRAMES; i++)
         {
             desenho_pio(desenho_teste[i], valor_led, pio, sm, r, g, b); // Atualiza a matriz com o quadro atual
