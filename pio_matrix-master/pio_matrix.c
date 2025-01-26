@@ -138,13 +138,22 @@ uint32_t matrix_rgb(double b, double r, double g)
 // rotina para acionar a matrix de leds - ws2812b
 void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b)
 {
+    //funcao para espelhar os leds (Por padrão as imagens aparecem invertidas)
+    int ordem_fisica[NUM_PIXELS] = 
+    {
+        24, 23, 22, 21, 20, 
+        15, 16, 17, 18, 19, 
+        14, 13, 12, 11, 10,
+        5, 6, 7, 8, 9,     
+        4, 3, 2, 1, 0       
+    };
 
     for (int16_t i = 0; i < NUM_PIXELS; i++)
     {
-        valor_led = matrix_rgb(desenho[24 - i], r = 0.0, g = 0.0); // Definine todos os leds para a cor azul
+        int indice_fisico = ordem_fisica[i];
+        valor_led = matrix_rgb(desenho[indice_fisico], r = 0.0, g = 0.0); // Define a cor do LED
         pio_sm_put_blocking(pio, sm, valor_led);
     }
-
 }
 
 void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b)
