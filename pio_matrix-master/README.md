@@ -11,13 +11,13 @@ Este projeto implementa a funcionalidade de controle de uma matriz de LEDs color
 
 ## Funcionalidades
 
-- **Teclas 0 a 9**: Acionam animações específicas.  
-- **Tecla A**: Desliga todos os LEDs.  
-- **Tecla B**: Liga todos os LEDs na cor azul com 100% de luminosidade.  
-- **Tecla C**: Liga todos os LEDs na cor vermelha com 80% de luminosidade.  
-- **Tecla D**: Liga todos os LEDs na cor verde com 50% de luminosidade.  
-- **Tecla #**: Liga todos os LEDs na cor branca com 20% de luminosidade.  
-- **Tecla ***: Habilita o modo de gravação via software (reboot do Raspberry Pi Pico W).  
+- **Teclas "0 a 9"**: Acionam animações específicas.  
+- **Tecla "A"**: Desliga todos os LEDs.  
+- **Tecla "B"**: Liga todos os LEDs na cor azul com 100% de luminosidade.  
+- **Tecla "C"**: Liga todos os LEDs na cor vermelha com 80% de luminosidade.  
+- **Tecla "D"**: Liga todos os LEDs na cor verde com 50% de luminosidade.  
+- **Tecla "#"**: Liga todos os LEDs na cor branca com 20% de luminosidade.  
+- **Tecla "*"**: Habilita o modo de gravação via software (reboot do Raspberry Pi Pico W).  
 
 ## Requisitos
 
