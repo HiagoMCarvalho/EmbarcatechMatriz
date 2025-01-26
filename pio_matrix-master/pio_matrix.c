@@ -30,9 +30,10 @@ const char teclas[rows][cols] = {
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
 
+// Inicializa os pinos dos teclado matricial e buzzer
 void init_pinos()
 {
-    // Inicializar as teclas como saída
+    // Inicializar as teclas referentes as linhas como saída
     for (int l = 0; l < rows; l++)
     {
         gpio_init(linhas[l]);
@@ -40,12 +41,32 @@ void init_pinos()
         gpio_put(linhas[l], true);
     }
 
-    // Inicializar as teclas como entrada
+    // Inicializar as teclas referentes as colunas como entrada
     for (int c = 0; c < cols; c++)
     {
         gpio_init(colunas[c]);
         gpio_set_dir(colunas[c], GPIO_IN);
         gpio_pull_up(colunas[c]);
+    }
+
+    // Inicializar o pino do buzzer como saída
+    gpio_init(buzzer);
+    gpio_set_dir(buzzer, GPIO_OUT);
+    gpio_put(buzzer, false);
+}
+
+void tocar_buzzer(int duracao_ms, int frequencia_hz)
+{
+    int atraso_us = 1000000 / (2 * frequencia_hz);
+    int ciclos = (duracao_ms * 1000) / (2 * atraso_us);
+
+    for (int i = 0; i < ciclos; i++)
+    {
+        gpio_put(buzzer, true);
+        sleep_us(atraso_us);
+
+        gpio_put(buzzer, false);
+        sleep_us(atraso_us);
     }
 }
 
@@ -77,20 +98,21 @@ char escanear_teclado()
 
 // vetor para criar imagem na matriz de led - 1
 double desenho_teste[NUM_FRAMES][NUM_PIXELS] = {
-    {1.0, 1.0, 1.0, 1.0, 1.0,
+    {0.0, 0.0, 0.0, 0.0, 0.0,
      0.0, 0.0, 0.0, 0.0, 0.0,
      0.0, 0.0, 0.0, 0.0, 0.0,
-     0.0, 0.0, 1.0, 0.0, 0.0,
-     0.0, 1.0, 1.0, 1.0, 0.0},
+     0.0, 0.0, 0.0, 0.0, 0.0,
+     0.0, 0.0, 0.0, 0.0, 0.0},
 
-    {1.0, 1.0, 1.0, 1.0, 1.0,
-     0.0, 1.0, 0.0, 1.0, 1.0,
-     0.0, 0.0, 0.0, 0.0, 0.0,
-     0.0, 0.0, 0.0, 1.0, 0.0,
-     0.0, 0.0, 1.0, 1.0, 1.0},
+    {1.0, 0.0, 0.0, 0.0, 1.0,
+     0.0, 1.0, 0.0, 1.0, 0.0,
+     0.0, 0.0, 1.0, 0.0, 0.0,
+     0.0, 1.0, 0.0, 1.0, 0.0,
+     1.0, 0.0, 0.0, 0.0, 1.0},
 
 };
 
+// Vetor para criar a animação 2
 double desenho2[NUM_FRAMES][NUM_PIXELS] =
     {
         {1.0, 1.0, 1.0, 1.0, 1.0,
@@ -183,7 +205,9 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
     for (int16_t i = 0; i < NUM_PIXELS; i++)
     {
         int indice_fisico = ordem_fisica[i];
+
         valor_led = matrix_rgb(desenho[indice_fisico], r = 0.0, g = 0.0); // Define a cor do LED
+
         pio_sm_put_blocking(pio, sm, valor_led);
     }
 }
@@ -201,7 +225,9 @@ void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, 
         {
             desenho_pio(desenho2[i], valor_led, pio, sm, r, g, b);
             sleep_ms(1000);
-        }
+            
+            tocar_buzzer(10, 350);
+        }        
 
         for (int i = 0; i < NUM_PIXELS; i++)
         {
