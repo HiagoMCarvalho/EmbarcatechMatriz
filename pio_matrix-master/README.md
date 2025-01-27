@@ -41,12 +41,12 @@ Este projeto implementa a funcionalidade de controle de uma matriz de LEDs color
   git clone <URL do Repositório>
   ```
 2. Abra o projeto no VS Code.
-3. Abra o arquivo diagram.json no Wokwi para visualizar a simulação.
+3. Abra o arquivo diagram.json no Wokwi para visualizar a simulação. 
  
 ## Equipe
-- **Hiago Moura**
-- **Ikaro Silva**
-- **Yasmin Cruz**
+- **Hiago Moura** - 
+- **Ikaro Silva** - TIC370100415
+- **Yasmin Cruz** - TIC370101610
 
 ## Vídeo demonstrativo 
-[Assista aqui](Url_do_vídeo) 
+[Assista aqui](Url_do_vídeo)
