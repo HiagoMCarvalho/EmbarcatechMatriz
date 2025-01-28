@@ -44,6 +44,7 @@ Este projeto implementa a funcionalidade de controle de uma matriz de LEDs color
 3. Abra o arquivo diagram.json no Wokwi para visualizar a simulação. 
  
 ## Equipe
+- **Ana Luisa** - TIC370100897
 - **Elmer Carvalho** - TIC370100953
 - **Hiago Moura** - TIC370100894
 - **Ikaro Silva** - TIC370100415
