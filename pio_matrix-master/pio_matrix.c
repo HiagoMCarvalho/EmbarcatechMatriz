@@ -125,6 +125,40 @@ double desenho4[NUM_FRAMES][NUM_PIXELS] =
 
 };
 
+
+double desenho3[NUM_FRAMES][NUM_PIXELS] =
+{ 
+    {1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0},
+                        
+    {1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 1, 1, 0, 0},
+
+    {1, 0, 1, 0, 0,
+     1, 0, 1, 0, 0,
+     1, 0, 1, 0, 0,
+     1, 0, 1, 0, 0,
+     1, 1, 1, 0, 0},
+
+    {1, 0, 1, 1, 1,
+     1, 0, 1, 0, 0,
+     1, 0, 1, 0, 0,
+     1, 0, 1, 0, 0,
+     1, 1, 1, 0, 0},
+
+    {1, 0, 1, 1, 1,
+     1, 0, 1, 0, 1,
+     1, 0, 1, 0, 1,
+     1, 0, 1, 0, 1,
+     1, 1, 1, 0, 1},
+};
+
 // rotina para definição da intensidade de cores do led
 uint32_t matrix_rgb(double b, double r, double g)
 {
@@ -156,6 +190,20 @@ void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r
     }
 }
 
+void criar_desenho(double desenho[NUM_FRAMES][NUM_PIXELS], uint32_t valor_led, PIO pio, uint sm, double r, double g, double b) {
+    for (int i = 0; i < NUM_FRAMES ; i++) { 
+        desenho_pio(desenho[i], valor_led, pio, sm, r, g, b);
+        sleep_ms(1000);
+    }
+}
+
+void limpar_desenho(uint32_t valor_led, PIO pio, uint sm) {
+    for (int i = 0; i < NUM_PIXELS; i++) {
+        valor_led = (0, 0, 0);
+        pio_sm_put_blocking(pio, sm, valor_led);
+    }
+}
+
 void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b)
 {
     switch (tecla)
@@ -168,24 +216,17 @@ void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, 
 
         break;
 
-    case '3':
+    case '3': {
+            criar_desenho(desenho3, valor_led, pio, sm, r, g, b);
+            limpar_desenho(valor_led, pio, sm);
+            break;
+        }
 
-        break;
-
-    case '4':
-            for (int i = 0; i < NUM_FRAMES ; i++)
-            {
-                desenho_pio(desenho4[i], valor_led, pio, sm, r, g, b);
-                sleep_ms(1000);
-            }
-
-            for(int i = 0; i < NUM_PIXELS; i++)
-            {
-                valor_led = (b = 0, r = 0, g = 0);
-                pio_sm_put_blocking(pio, sm, valor_led);
-            }
-            
-        break;
+    case '4': {
+            criar_desenho(desenho4, valor_led, pio, sm, r, g, b);
+            limpar_desenho(valor_led, pio, sm);
+            break;
+        }
 
     case '5':
 
