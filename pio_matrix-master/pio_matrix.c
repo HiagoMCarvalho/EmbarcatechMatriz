@@ -13,9 +13,8 @@
 // número de LEDs
 #define NUM_PIXELS 25
 #define FRAMED0 27
-#define FRAMED1 5
+#define NUM_FRAMES 5
 #define FRAMED2 11
-#define FRAMED4 5
 // Buzzer
 #define buzzer 17
 
@@ -243,7 +242,7 @@ double desenho0[FRAMED0][NUM_PIXELS] =
                         0.0, 0.0, 0.0, 0.0, 0.0},
                         
                     };
-double desenho1[FRAMED1][NUM_PIXELS] =
+double desenho1[NUM_FRAMES][NUM_PIXELS] =
 {
     {1, 0, 0, 0, 1,
      1, 0, 0, 0, 1,
@@ -345,7 +344,7 @@ double desenho2[FRAMED2][NUM_PIXELS] =
          0.0, 0.0, 1.0, 0.0, 0.0,
          0.0, 1.0, 1.0, 1.0, 0.0}};
 
-double desenho4[FRAMED4][NUM_PIXELS] =
+double desenho4[NUM_FRAMES][NUM_PIXELS] =
 { 
     {0, 0, 0, 0, 0,
      0, 1, 0, 1, 0,
@@ -468,13 +467,13 @@ void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, 
              desenho_pio(desenho0[i], valor_led, pio, sm, r, g, b);
              sleep_ms(1000);
             }
+            break;
 
 
     case '1':
-            for (int i = 0; i < FRAMED1 ; i++){
-             desenho_pio(desenho1[i], valor_led, pio, sm, r, g, b);
+             criar_desenho(desenho1, valor_led, pio, sm, r, g, b);
              sleep_ms(1000);
-            }
+             limpar_desenho(valor_led, pio, sm);
             break;
     case '2':
 
@@ -484,34 +483,22 @@ void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, 
              sleep_ms(1000);
             }
 
-        break;
+             break;  
 
 
     case '3': {
-            criar_desenho(desenho3, valor_led, pio, sm, r, g, b);
-            limpar_desenho(valor_led, pio, sm);
+             criar_desenho(desenho3, valor_led, pio, sm, r, g, b);
+             sleep_ms(1000);
+             limpar_desenho(valor_led, pio, sm);
             break;
         }
 
     case '4':
-            for (int i = 0; i < FRAMED4 ; i++)
-            {
-                desenho_pio(desenho4[i], valor_led, pio, sm, r, g, b);
-                sleep_ms(1000);
-            }
-
-
-    case '4': {
-            criar_desenho(desenho4, valor_led, pio, sm, r, g, b);
-            limpar_desenho(valor_led, pio, sm);
+             criar_desenho(desenho4, valor_led, pio, sm, r, g, b);
+             sleep_ms(1000);
+             limpar_desenho(valor_led, pio, sm);
             break;
-        }
-
-    case '5':
-
-        break;
-    
-
+            
     case 'A': // Desliga os leds
             for (int16_t i = 0; i < NUM_PIXELS; i++) 
             {
