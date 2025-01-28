@@ -13,6 +13,7 @@
 // número de LEDs
 #define NUM_PIXELS 25
 #define FRAMED0 27
+#define FRAMED1 5
 #define FRAMED2 11
 #define FRAMED4 5
 // Buzzer
@@ -242,6 +243,39 @@ double desenho0[FRAMED0][NUM_PIXELS] =
                         0.0, 0.0, 0.0, 0.0, 0.0},
                         
                     };
+double desenho1[FRAMED1][NUM_PIXELS] =
+{
+    {1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1},
+
+    {1, 0, 0, 0, 0,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     0, 0, 0, 0, 1},
+
+    {1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     1, 0, 0, 0, 1,
+     0, 0, 0, 0, 1,
+     0, 0, 0, 0, 1},
+
+    {1, 0, 0, 0, 0,
+     1, 0, 0, 0, 0,
+     0, 0, 0, 0, 0,
+     0, 0, 0, 0, 1,
+     0, 0, 0, 0, 1},
+
+    {1, 0, 0, 0, 0,
+     0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0,
+     0, 0, 0, 0, 1},
+};
+
 
 double desenho2[FRAMED2][NUM_PIXELS] =
     {
@@ -437,9 +471,11 @@ void executar_tecla(char tecla, uint32_t valor_led, PIO pio, uint sm, double r, 
 
 
     case '1':
-
-        break;
-
+            for (int i = 0; i < FRAMED1 ; i++){
+             desenho_pio(desenho1[i], valor_led, pio, sm, r, g, b);
+             sleep_ms(1000);
+            }
+            break;
     case '2':
 
             for (int i = 0; i < FRAMED2 ; i++)
