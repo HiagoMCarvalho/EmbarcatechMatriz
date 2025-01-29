@@ -51,4 +51,4 @@ Este projeto implementa a funcionalidade de controle de uma matriz de LEDs color
 - **Yasmin Cruz** - TIC370101610
 
 ## Vídeo demonstrativo 
-[Assista aqui](Url_do_vídeo)
+[Assista aqui](https://drive.google.com/file/d/1CUWRyVsYYEBlJVmDgjHrMx-HTRat2hUW/view?usp=sharing)
